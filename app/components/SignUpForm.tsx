@@ -29,7 +29,7 @@ export default function SignUpForm() {
         password,
       });
       if (error) {
-        toast.error(error.message);
+        toast.error(error);
         console.log(error);
       }
       if (data) {

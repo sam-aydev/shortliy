@@ -13,19 +13,26 @@ export async function signup({
   password: string;
   username: string;
 }) {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: { username },
-    },
-  });
-  if (error) {
-    console.log(error);
-    return { error };
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { username },
+      },
+    });
+    if (error) {
+      console.log(error);
+      return { error: error.message };
+    }
+    return { data };
+  } catch (error: any) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured",
+    };
   }
-  return { data };
 }
 
 export async function login({
