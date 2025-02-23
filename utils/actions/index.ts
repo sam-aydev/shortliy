@@ -35,14 +35,18 @@ export async function login({
   email: string;
   password: string;
 }) {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  if (error) {
-    console.log(error);
-    return { error };
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+    return { data };
+  } catch (error: any) {
+    return { error: "Failed to fetch user data" };
   }
-  return { data };
 }
