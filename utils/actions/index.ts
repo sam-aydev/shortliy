@@ -47,6 +47,6 @@ export async function login({
     }
     return { data };
   } catch (error: any) {
-    return { error: "Failed to fetch user data" };
+    return { error };
   }
 }
