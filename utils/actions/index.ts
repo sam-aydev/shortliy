@@ -43,10 +43,13 @@ export async function login({
     });
     if (error) {
       console.log(error);
-      throw new Error(error.message);
+      return { error: error.message };
     }
     return { data };
   } catch (error: any) {
-    return { error };
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured",
+    };
   }
 }
