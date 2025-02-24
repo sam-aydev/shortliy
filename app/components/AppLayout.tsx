@@ -9,9 +9,34 @@ import { FaLinkSlash } from "react-icons/fa6";
 import { RiLinksFill } from "react-icons/ri";
 
 import { BiUserCircle } from "react-icons/bi";
+import Link from "next/link";
+import { signOut } from "@/utils/actions";
+import toast from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
+import { redirect, useRouter } from "next/navigation";
 
 export default function AppLayout() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
+  async function handleLogout() {
+    try {
+      setIsLoggingOut(true);
+      const { message, error }: any = await signOut();
+      if (error) {
+        toast.error(error);
+        return;
+      }
+      toast.success(message);
+      router.replace("/login");
+    } catch (error: any) {
+      toast.error(error);
+      setIsLoggingOut(false);
+      console.log(error);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  }
 
   return (
     <div>
@@ -31,9 +56,19 @@ export default function AppLayout() {
         </div>
         <div className="flex items-center justify-between space-x-2 sm:space-x-4">
           <p className="text-sm font-semibold md:text-lg">Welcome Samx</p>
-          <button className="bg-black text-sm hover:bg-slate-900 text-white rounded p-2 flex items-center justify-between space-x-2 ">
-            Logout
-            <HiLogout className="text-white size-5 p-1" />
+          <button
+            disabled={isLoggingOut}
+            onClick={handleLogout}
+            className="bg-black text-sm hover:bg-slate-900 text-white rounded p-2 flex items-center justify-between space-x-2 "
+          >
+            {isLoggingOut ? (
+              <ClipLoader color="#fffff" loading={isLoggingOut} size={20} />
+            ) : (
+              <>
+                <span>Logout</span>
+                <HiLogout className="text-white size-5 p-1" />
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -44,35 +79,51 @@ export default function AppLayout() {
         className="fixed  left-0 h-screen shadow-xl text-sm font-semibold bg-white w-1/2 rounded-r-xl sm:w-1/3  md:hidden"
       >
         <ul className="flex flex-col space-y-2 px-3">
-          <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
-            <MdDashboard className="size-6 p-1" /> Dashboard
-          </li>
-          <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
-            <FaLinkSlash className="size-6 p-1" /> Shorten Links
-          </li>
-          <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
-            <RiLinksFill className="size-6 p-1" /> Manage Links
-          </li>
-          <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
-            <BiUserCircle className="size-6 p-1" /> Profile
-          </li>
+          <Link href="/app/shorten">
+            <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+              <MdDashboard className="size-6 p-1" /> Dashboard
+            </li>
+          </Link>
+          <Link href="/app/shorten">
+            <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+              <FaLinkSlash className="size-6 p-1" /> Shorten Links
+            </li>
+          </Link>
+          <Link href="/app/shorten">
+            <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+              <RiLinksFill className="size-6 p-1" /> Manage Links
+            </li>
+          </Link>
+          <Link href="/app/shorten">
+            <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+              <BiUserCircle className="size-6 p-1" /> Profile
+            </li>
+          </Link>
         </ul>
       </motion.div>
 
       <div className="md:flex hidden fixed  left-0 h-screen shadow-xl bg-white w-[30%] lg:w-[20%]  rounded-r-xl">
         <ul className="flex flex-col space-y-2 px-3 w-full">
-          <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
-            <MdDashboard className="size-6 p-1" /> Dashboard
-          </li>
-          <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
-            <FaLinkSlash className="size-6 p-1" /> Shorten Links
-          </li>
-          <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
-            <RiLinksFill className="size-6 p-1" /> Manage Links
-          </li>
-          <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
-            <BiUserCircle className="size-6 p-1" /> Profile
-          </li>
+          <Link href="/app/shorten">
+            <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+              <MdDashboard className="size-6 p-1" /> Dashboard
+            </li>
+          </Link>
+          <Link href="/app/shorten">
+            <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+              <FaLinkSlash className="size-6 p-1" /> Shorten Links
+            </li>
+          </Link>
+          <Link href="/app/shorten">
+            <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+              <RiLinksFill className="size-6 p-1" /> Manage Links
+            </li>
+          </Link>
+          <Link href="/app/shorten">
+            <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+              <BiUserCircle className="size-6 p-1" /> Profile
+            </li>
+          </Link>
         </ul>
       </div>
     </div>

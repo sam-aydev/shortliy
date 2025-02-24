@@ -65,7 +65,10 @@ export default function SignInForm() {
           className="p-2 border-black border-2 rounded w-full"
         />
       </div>
-      <button className="bg-black p-2 text-white rounded flex justify-center space-x-2 items-center  hover:bg-slate-900">
+      <button
+        disabled={isLoading}
+        className="bg-black p-2 text-white rounded flex justify-center space-x-2 items-center  hover:bg-slate-900"
+      >
         <ClipLoader color="#fffff" loading={isLoading} size={15} />
         <span className="px-[2px]">Login To Shortily! </span>
       </button>

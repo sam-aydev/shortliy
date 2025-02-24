@@ -1,6 +1,13 @@
 import SignInForm from "@/app/components/SignInForm";
+import { getUser } from "@/utils/actions";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const { data, error }: any = await getUser();
+
+  if (data) redirect("/app");
+  console.log(data);
+  console.log(error);
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3">
