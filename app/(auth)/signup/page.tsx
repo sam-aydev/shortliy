@@ -16,3 +16,9 @@ export default function Page() {
     </div>
   );
 }
+
+export function generateMetadata() {
+  return {
+    title: "Create An Account with Shortliy",
+  };
+}

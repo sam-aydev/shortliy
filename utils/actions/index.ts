@@ -135,3 +135,5 @@ export async function LinkShortener({
     };
   }
 }
+
+export async function getFiveLinks() {}
