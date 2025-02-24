@@ -109,7 +109,7 @@ export default function AppLayout() {
             <li
               className={
                 pathname === "/app"
-                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-slate-400 "
+                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black"
                   : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
               }
             >
@@ -120,7 +120,7 @@ export default function AppLayout() {
             <li
               className={
                 pathname === "/app/shorten"
-                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-slate-400 "
+                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black"
                   : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
               }
             >
@@ -131,7 +131,7 @@ export default function AppLayout() {
             <li
               className={
                 pathname === "/app/manage"
-                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-slate-400 "
+                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black "
                   : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
               }
             >
@@ -142,7 +142,7 @@ export default function AppLayout() {
             <li
               className={
                 pathname === "/app/profile"
-                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-slate-400 "
+                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black "
                   : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
               }
             >
@@ -158,8 +158,8 @@ export default function AppLayout() {
             <li
               className={
                 pathname === "/app"
-                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-slate-400 rounded-md"
-                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md"
+                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
+                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
               }
             >
               <MdDashboard className="size-6 p-1" /> Dashboard
@@ -169,8 +169,8 @@ export default function AppLayout() {
             <li
               className={
                 pathname === "/app/shorten"
-                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-slate-400 rounded-md"
-                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md"
+                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
+                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
               }
             >
               <FaLinkSlash className="size-6 p-1" /> Shorten Links
@@ -180,8 +180,8 @@ export default function AppLayout() {
             <li
               className={
                 pathname === "/app/manage"
-                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-slate-400 rounded-md"
-                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md"
+                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
+                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
               }
             >
               <RiLinksFill className="size-6 p-1" /> Manage Links
@@ -191,8 +191,8 @@ export default function AppLayout() {
             <li
               className={
                 pathname === "/app/profile"
-                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-slate-400 rounded-md"
-                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md"
+                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
+                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
               }
             >
               <BiUserCircle className="size-6 p-1" /> Profile
