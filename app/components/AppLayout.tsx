@@ -13,13 +13,14 @@ import Link from "next/link";
 import { signOut } from "@/utils/actions";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function AppLayout() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(
     function () {
@@ -42,6 +43,7 @@ export default function AppLayout() {
     },
     [isOpen, setIsOpen]
   );
+
   async function handleLogout() {
     try {
       setIsLoggingOut(true);
@@ -103,23 +105,47 @@ export default function AppLayout() {
         className="fixed sidebar left-0 h-screen shadow-xl text-sm font-semibold bg-white w-1/2 rounded-r-xl sm:w-1/3  md:hidden"
       >
         <ul className="flex flex-col space-y-2 px-3">
-          <Link href="/app/shorten">
-            <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+          <Link href="/app">
+            <li
+              className={
+                pathname === "/app"
+                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-slate-400 "
+                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
+              }
+            >
               <MdDashboard className="size-6 p-1" /> Dashboard
             </li>
           </Link>
           <Link href="/app/shorten">
-            <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+            <li
+              className={
+                pathname === "/app/shorten"
+                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-slate-400 "
+                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
+              }
+            >
               <FaLinkSlash className="size-6 p-1" /> Shorten Links
             </li>
           </Link>
-          <Link href="/app/shorten">
-            <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+          <Link href="/app/manage">
+            <li
+              className={
+                pathname === "/app/manage"
+                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-slate-400 "
+                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
+              }
+            >
               <RiLinksFill className="size-6 p-1" /> Manage Links
             </li>
           </Link>
-          <Link href="/app/shorten">
-            <li className="p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+          <Link href="/app/profile">
+            <li
+              className={
+                pathname === "/app/profile"
+                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-slate-400 "
+                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
+              }
+            >
               <BiUserCircle className="size-6 p-1" /> Profile
             </li>
           </Link>
@@ -128,23 +154,47 @@ export default function AppLayout() {
 
       <div className="md:flex hidden fixed  left-0 h-screen shadow-xl bg-white w-[30%] lg:w-[20%]  rounded-r-xl">
         <ul className="flex flex-col space-y-2 px-3 w-full">
-          <Link href="/app/shorten">
-            <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+          <Link href="/app">
+            <li
+              className={
+                pathname === "/app"
+                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-slate-400 rounded-md"
+                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md"
+              }
+            >
               <MdDashboard className="size-6 p-1" /> Dashboard
             </li>
           </Link>
           <Link href="/app/shorten">
-            <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+            <li
+              className={
+                pathname === "/app/shorten"
+                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-slate-400 rounded-md"
+                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md"
+              }
+            >
               <FaLinkSlash className="size-6 p-1" /> Shorten Links
             </li>
           </Link>
-          <Link href="/app/shorten">
-            <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+          <Link href="/app/manage">
+            <li
+              className={
+                pathname === "/app/manage"
+                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-slate-400 rounded-md"
+                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md"
+              }
+            >
               <RiLinksFill className="size-6 p-1" /> Manage Links
             </li>
           </Link>
-          <Link href="/app/shorten">
-            <li className="p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md">
+          <Link href="/app/profile">
+            <li
+              className={
+                pathname === "/app/profile"
+                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-slate-400 rounded-md"
+                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-slate-400 rounded-md"
+              }
+            >
               <BiUserCircle className="size-6 p-1" /> Profile
             </li>
           </Link>

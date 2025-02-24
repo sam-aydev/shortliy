@@ -5,7 +5,7 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <div>
       <AppLayout />
-      <div>{children}</div>
+      <div className="md:w-[70%] lg:w-[80%]">{children}</div>
     </div>
   );
 }
