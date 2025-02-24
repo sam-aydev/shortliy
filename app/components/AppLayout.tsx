@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu";
 import { motion } from "motion/react";
 import { HiLogout } from "react-icons/hi";
@@ -13,12 +13,35 @@ import Link from "next/link";
 import { signOut } from "@/utils/actions";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function AppLayout() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(
+    function () {
+      if (!isOpen) return;
+      function handleOutsideClick(event: MouseEvent): void {
+        if (
+          (event.target as Node) &&
+          sidebarRef.current &&
+          !sidebarRef.current.contains(event.target as Node)
+        ) {
+          setIsOpen(false);
+        }
+      }
+
+      document.addEventListener("mousedown", handleOutsideClick);
+
+      return () => {
+        document.removeEventListener("mousedown", handleOutsideClick);
+      };
+    },
+    [isOpen, setIsOpen]
+  );
   async function handleLogout() {
     try {
       setIsLoggingOut(true);
@@ -76,7 +99,8 @@ export default function AppLayout() {
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? "0%" : "-100%" }}
         transition={{ type: "tween", duration: 0.3 }}
-        className="fixed  left-0 h-screen shadow-xl text-sm font-semibold bg-white w-1/2 rounded-r-xl sm:w-1/3  md:hidden"
+        ref={sidebarRef}
+        className="fixed sidebar left-0 h-screen shadow-xl text-sm font-semibold bg-white w-1/2 rounded-r-xl sm:w-1/3  md:hidden"
       >
         <ul className="flex flex-col space-y-2 px-3">
           <Link href="/app/shorten">
