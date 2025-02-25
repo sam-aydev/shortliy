@@ -1,5 +1,5 @@
 import ShortenLink from "@/app/components/ShortenLink";
-import { getUser } from "@/utils/actions";
+import { getUser } from "@/utils/actions/server";
 import { redirect } from "next/navigation";
 
 export default async function Page() {

@@ -10,7 +10,7 @@ import { RiLinksFill } from "react-icons/ri";
 
 import { BiUserCircle } from "react-icons/bi";
 import Link from "next/link";
-import { signOut } from "@/utils/actions";
+import { signOut } from "@/utils/actions/server";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import { usePathname, useRouter } from "next/navigation";
@@ -110,7 +110,7 @@ export default function AppLayout() {
               className={
                 pathname === "/app"
                   ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black"
-                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
+                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md hover:bg-black hover:text-white"
               }
             >
               <MdDashboard className="size-6 p-1" /> Dashboard
@@ -121,7 +121,7 @@ export default function AppLayout() {
               className={
                 pathname === "/app/shorten"
                   ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black"
-                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
+                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md hover:bg-black hover:text-white"
               }
             >
               <FaLinkSlash className="size-6 p-1" /> Shorten Links
@@ -132,21 +132,10 @@ export default function AppLayout() {
               className={
                 pathname === "/app/manage"
                   ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black "
-                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
+                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md hover:bg-black hover:text-white"
               }
             >
               <RiLinksFill className="size-6 p-1" /> Manage Links
-            </li>
-          </Link>
-          <Link href="/app/profile">
-            <li
-              className={
-                pathname === "/app/profile"
-                  ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black "
-                  : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md"
-              }
-            >
-              <BiUserCircle className="size-6 p-1" /> Profile
             </li>
           </Link>
         </ul>
@@ -185,17 +174,6 @@ export default function AppLayout() {
               }
             >
               <RiLinksFill className="size-6 p-1" /> Manage Links
-            </li>
-          </Link>
-          <Link href="/app/profile">
-            <li
-              className={
-                pathname === "/app/profile"
-                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
-                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
-              }
-            >
-              <BiUserCircle className="size-6 p-1" /> Profile
             </li>
           </Link>
         </ul>

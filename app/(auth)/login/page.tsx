@@ -1,5 +1,5 @@
 import SignInForm from "@/app/components/SignInForm";
-import { getUser } from "@/utils/actions";
+import { getUser } from "@/utils/actions/server";
 import { redirect } from "next/navigation";
 
 export default async function Page() {

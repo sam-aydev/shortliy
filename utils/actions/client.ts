@@ -1,0 +1,20 @@
+import { createClient } from "../supabase/client";
+
+export async function getFiveLink() {
+  try {
+    const supabase = createClient();
+
+    const { data, error } = await supabase.from("Links").select("*").limit(5);
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    return { data: data };
+  } catch (error) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured!",
+    };
+  }
+}

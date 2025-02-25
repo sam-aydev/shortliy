@@ -1,6 +1,6 @@
 "use client";
 
-import { signup } from "@/utils/actions";
+import { signup } from "@/utils/actions/server";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
