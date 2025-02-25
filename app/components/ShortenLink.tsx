@@ -5,6 +5,7 @@ import { useFiveLinks } from "@/utils/hooks/useFiveLinks";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 import { ClipLoader } from "react-spinners";
 import isURL from "validator/lib/isURL";
 
@@ -49,68 +50,76 @@ export default function ShortenLink() {
     <>
       <div className="">
         <div className="w-full flex justify-center items-center h-screen">
-          <form
-            onSubmit={handleLinkShortening}
-            className="flex flex-col space-y-2 w-3/4 mx-auto"
-          >
-            <input
-              type="text"
-              disabled={isLoading}
-              value={original_link}
-              onChange={(e: any) => {
-                setOriginalLink(e.target.value);
-                if (original_link && !isURL(original_link)) {
-                  setError("Please enter a valid url!");
-                } else {
-                  setError("");
-                }
-              }}
-              placeholder="Your Original link..."
-              className="p-2 border-2 border-black rounded-md"
-            />
-            <button
-              disabled={isLoading}
-              className="hover:bg-slate-800 bg-black rounded-md text-white py-2 flex justify-center items-center"
+          <div className="w-full px-3">
+            <form
+              onSubmit={handleLinkShortening}
+              className="flex flex-col space-y-2 w-3/4 mx-auto"
             >
-              <ClipLoader color="#fffff" loading={isLoading} size={20} />
-              <span className="px-[2px]">Shorten Link</span>
-            </button>
-
+              <input
+                type="text"
+                disabled={isLoading}
+                value={original_link}
+                onChange={(e: any) => {
+                  setOriginalLink(e.target.value);
+                  if (original_link && !isURL(original_link)) {
+                    setError("Please enter a valid url!");
+                  } else {
+                    setError("");
+                  }
+                }}
+                placeholder="Your Original link..."
+                className="p-2 border-2 border-black rounded-md"
+              />
+              <button
+                disabled={isLoading}
+                className="hover:bg-slate-800 bg-black rounded-md text-white py-2 flex justify-center items-center"
+              >
+                <ClipLoader color="#fffff" loading={isLoading} size={20} />
+                <span className="px-[2px]">Shorten Link</span>
+              </button>
+            </form>
             {fiveLinks && (
               <div className="text-sm font-bold w-full">
-                <div className="w-full ">
-                  <div className="w-full mx-auto mt-16">
-                    <div className="grid grid-cols-3 text-center bg-black text-white py-2 rounded">
-                      <div>Shortening Time</div>
-                      <div>Original Link</div>
-                      <div>Shortened Link</div>
+                <div className=" ">
+                  <div className="w-full mx-auto mt-16 ">
+                    <div className="gap-4  grid grid-cols-4 px-3 text-center bg-black text-white py-2 rounded">
+                      <div className="w-[30%]">Time</div>
+                      <div className="w-[30%]">Original Link</div>
+                      <div className="w-[30%]">Shortened Link</div>
                     </div>
                   </div>
-                  <div className="w-full mx-auto">
+                  <div className="w-full mx-auto mt-1 ">
                     {fiveLinks?.data?.map((item: any) => (
                       <div
                         key={item.id}
-                        className=" grid grid-cols-3 text-center  text-black py-2 rounded"
+                        className=" gap-4 grid text-xs grid-cols-4 text-black py-2 rounded"
                       >
-                        <div>2hr</div>
-                        <div>{item.original_link.slice(0, 9)}...</div>
-                        <div>{item.shortened_link.slice(0, 15)}...</div>
+                        <div className="text-center">2hr</div>
+                        <div className="">
+                          {item.original_link.slice(0, 9)}...
+                        </div>
+                        <div className="">
+                          {item.shortened_link.slice(0, 15)}...
+                        </div>
+                        <div className="">
+                          <BiDotsVerticalRounded className="size-6" />
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
-                {fiveLinks.length === 5 && (
-                  <div className="flex justify-end">
-                    <Link href="/manage">
+                {fiveLinks?.data.length >= 5 ? (
+                  <div>
+                    <Link href="/app/manage">
                       <button className="hover:bg-black hover:text-white duration-300 text-black mt-4  w-full bg-slate-100 p-2 rounded-md">
                         See Links
                       </button>
                     </Link>
                   </div>
-                )}
+                ) : null}
               </div>
             )}
-          </form>
+          </div>
         </div>
       </div>
     </>

@@ -18,3 +18,22 @@ export async function getFiveLink() {
     };
   }
 }
+
+export async function getLinks() {
+  try {
+    const supabase = createClient();
+
+    const { data, error } = await supabase.from("Links").select("*");
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    return { data: data };
+  } catch (error) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured!",
+    };
+  }
+}

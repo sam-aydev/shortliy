@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getFiveLink } from "../actions/client";
+import { getLinks } from "../actions/client";
 
-export function useFiveLinks() {
+export function useLinks() {
   const {
     data: fiveLinks,
     error: fiveLinksError,
     isLoading: isLoadingFiveLinks,
   } = useQuery({
-    queryFn: getFiveLink,
+    queryFn: getLinks,
     queryKey: ["Links"],
     staleTime: 0,
     // refetchInterval: 0.5,
