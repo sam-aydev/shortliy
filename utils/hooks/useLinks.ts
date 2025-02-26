@@ -3,9 +3,9 @@ import { getLinks } from "../actions/client";
 
 export function useLinks() {
   const {
-    data: fiveLinks,
-    error: fiveLinksError,
-    isLoading: isLoadingFiveLinks,
+    data: links,
+    error: linksError,
+    isLoading: isLoadingLinks,
   } = useQuery({
     queryFn: getLinks,
     queryKey: ["Links"],
@@ -13,8 +13,8 @@ export function useLinks() {
     // refetchInterval: 0.5,
   });
   return {
-    fiveLinks,
-    fiveLinksError,
-    isLoadingFiveLinks,
+    links,
+    linksError,
+    isLoadingLinks,
   };
 }

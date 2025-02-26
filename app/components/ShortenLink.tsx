@@ -3,9 +3,11 @@
 import { getUser, LinkShortener } from "@/utils/actions/server";
 import { useFiveLinks } from "@/utils/hooks/useFiveLinks";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import { GrView } from "react-icons/gr";
+import { MdDeleteForever } from "react-icons/md";
 import { ClipLoader } from "react-spinners";
 import isURL from "validator/lib/isURL";
 
@@ -13,6 +15,30 @@ export default function ShortenLink() {
   const [original_link, setOriginalLink] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [isOn, setIsOn] = useState(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(
+    function () {
+      if (!isOn) return;
+      function handleOutsideClick(event: MouseEvent): void {
+        if (
+          (event.target as Node) &&
+          menuRef.current &&
+          !menuRef.current.contains(event.target as Node)
+        ) {
+          setIsOn(null);
+        }
+      }
+
+      document.addEventListener("mousedown", handleOutsideClick);
+
+      return () => {
+        document.removeEventListener("mousedown", handleOutsideClick);
+      };
+    },
+    [isOn, setIsOn]
+  );
   const { fiveLinks, fiveLinksError, isLoadingFiveLinks }: any = useFiveLinks();
 
   async function handleLinkShortening(e: any) {
@@ -53,7 +79,7 @@ export default function ShortenLink() {
           <div className="w-full px-3">
             <form
               onSubmit={handleLinkShortening}
-              className="flex flex-col space-y-2 w-3/4 mx-auto"
+              className="flex flex-col space-y-2 w-full mx-auto"
             >
               <input
                 type="text"
@@ -78,21 +104,21 @@ export default function ShortenLink() {
                 <span className="px-[2px]">Shorten Link</span>
               </button>
             </form>
-            {fiveLinks && (
+            {fiveLinks?.data && (
               <div className="text-sm font-bold w-full">
                 <div className=" ">
                   <div className="w-full mx-auto mt-16 ">
                     <div className="gap-4  grid grid-cols-4 px-3 text-center bg-black text-white py-2 rounded">
-                      <div className="w-[30%]">Time</div>
+                      <div className="w-[30%] text-right">Time</div>
                       <div className="w-[30%]">Original Link</div>
                       <div className="w-[30%]">Shortened Link</div>
                     </div>
                   </div>
-                  <div className="w-full mx-auto mt-1 ">
+                  <div className="relative w-full mx-auto mt-2 ">
                     {fiveLinks?.data?.map((item: any) => (
                       <div
                         key={item.id}
-                        className=" gap-4 grid text-xs grid-cols-4 text-black py-2 rounded"
+                        className="bg-slate-200 mb-2 px-2 gap-4 grid text-xs grid-cols-4 text-black py-2 rounded"
                       >
                         <div className="text-center">2hr</div>
                         <div className="">
@@ -101,14 +127,28 @@ export default function ShortenLink() {
                         <div className="">
                           {item.shortened_link.slice(0, 15)}...
                         </div>
-                        <div className="">
+                        <div className="flex justify-end ">
                           <BiDotsVerticalRounded className="size-6" />
                         </div>
+                        {isOn === item.id && (
+                          <div
+                            ref={menuRef}
+                            className=" flex flex-col space-y-2 right-0 justify-end mt-7 z-30 bg-white rounded-md p-2 absolute"
+                          >
+                            <button className="hover:text-slate-400  flex items-center space-x-2">
+                              <GrView className="size-5" /> <span>View</span>
+                            </button>
+                            <button className="hover:text-red-700 flex items-center space-x-2">
+                              <MdDeleteForever className="size-5" />{" "}
+                              <span>Delete</span>
+                            </button>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
                 </div>
-                {fiveLinks?.data.length >= 5 ? (
+                {fiveLinks?.data?.length >= 5 ? (
                   <div>
                     <Link href="/app/manage">
                       <button className="hover:bg-black hover:text-white duration-300 text-black mt-4  w-full bg-slate-100 p-2 rounded-md">
