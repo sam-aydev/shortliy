@@ -102,7 +102,7 @@ export default function AppLayout() {
         animate={{ x: isOpen ? "0%" : "-100%" }}
         transition={{ type: "tween", duration: 0.3 }}
         ref={sidebarRef}
-        className="fixed sidebar left-0 h-screen shadow-xl text-sm font-semibold bg-white w-1/2 rounded-r-xl sm:w-1/3  md:hidden"
+        className="fixed z-[1000] sidebar left-0 h-screen shadow-xl text-sm font-semibold bg-white w-1/2 rounded-r-xl sm:w-1/3  md:hidden"
       >
         <ul className="flex flex-col space-y-2 px-3">
           <Link href="/app">

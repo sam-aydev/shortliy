@@ -68,7 +68,7 @@ export default function ManageLinks() {
                   {isOn === item.id && (
                     <div
                       ref={menuRef}
-                      className=" flex flex-col space-y-2 right-0 justify-end mt-7 z-30 bg-white rounded-md p-2 absolute"
+                      className=" flex flex-col space-y-2 right-0 justify-end mt-7  bg-white rounded-md p-2 absolute"
                     >
                       <button className="hover:text-slate-400  flex items-center space-x-2">
                         <GrView className="size-5" /> <span>View</span>
