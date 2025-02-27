@@ -14,8 +14,8 @@ export default function Layout({ children }: PropsWithChildren) {
     <div>
       <AppLayout />
 
-      <div className="md:grid md:col-span-full ">
-        <div className="md:col-span-4 hidden  h-screen shadow-xl bg-white  rounded-r-xl">
+      <div className="md:grid md:grid-cols-12 ">
+        <div className=" md:grid md:col-span-4 lg:col-span-3 xl:col-span-2 hidden  h-screen shadow-xl bg-white  rounded-r-xl">
           <ul className="flex flex-col space-y-2 px-3 w-full">
             <Link href="/app">
               <li
@@ -53,7 +53,9 @@ export default function Layout({ children }: PropsWithChildren) {
           </ul>
         </div>
 
-        <div className=" md:col-span-6">{children}</div>
+        <div className="md:grid md:col-span-8 lg:col-span-9 xl:col-span-10">
+          {children}
+        </div>
       </div>
     </div>
   );
