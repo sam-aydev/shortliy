@@ -57,7 +57,6 @@ export default function AppLayout() {
     } catch (error: any) {
       toast.error(error);
       setIsLoggingOut(false);
-      console.log(error);
     } finally {
       setIsLoggingOut(false);
     }
@@ -65,6 +64,7 @@ export default function AppLayout() {
 
   return (
     <div>
+      {/* Header - NavBar */}
       <div className=" text-black py-2 px-3 border-b-2 border-b-black flex items-center justify-between">
         <div className="flex items-center justify-center space-x-1  sm:space-x-2">
           <div
@@ -97,6 +97,8 @@ export default function AppLayout() {
           </button>
         </div>
       </div>
+
+      {/* mobile sidebar */}
       <motion.div
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? "0%" : "-100%" }}
@@ -141,43 +143,7 @@ export default function AppLayout() {
         </ul>
       </motion.div>
 
-      <div className="md:flex hidden fixed  left-0 h-screen shadow-xl bg-white w-[30%] lg:w-[20%]  rounded-r-xl">
-        <ul className="flex flex-col space-y-2 px-3 w-full">
-          <Link href="/app">
-            <li
-              className={
-                pathname === "/app"
-                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
-                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
-              }
-            >
-              <MdDashboard className="size-6 p-1" /> Dashboard
-            </li>
-          </Link>
-          <Link href="/app/shorten">
-            <li
-              className={
-                pathname === "/app/shorten"
-                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
-                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
-              }
-            >
-              <FaLinkSlash className="size-6 p-1" /> Shorten Links
-            </li>
-          </Link>
-          <Link href="/app/manage">
-            <li
-              className={
-                pathname === "/app/manage"
-                  ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
-                  : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
-              }
-            >
-              <RiLinksFill className="size-6 p-1" /> Manage Links
-            </li>
-          </Link>
-        </ul>
-      </div>
+      {/* Desktop sidebar */}
     </div>
   );
 }

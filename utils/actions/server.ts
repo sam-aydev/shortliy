@@ -24,7 +24,6 @@ export async function signup({
       },
     });
     if (error) {
-      console.log(error);
       return { error: error.message };
     }
     return { data };
@@ -50,7 +49,6 @@ export async function login({
       password,
     });
     if (error) {
-      console.log(error);
       return { error: error.message };
     }
     return { data };
@@ -129,6 +127,25 @@ export async function LinkShortener({
 
     return { data: data };
   } catch (error) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured!",
+    };
+  }
+}
+
+export async function deleteLinkById(id: number) {
+  try {
+    const supabase = await createClient();
+
+    const { error } = await supabase.from("Links").delete().eq("id", id);
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    return { message: "Link deleted!" };
+  } catch (error: any) {
     return {
       error:
         error instanceof Error ? error.message : "An unexpected error occured!",

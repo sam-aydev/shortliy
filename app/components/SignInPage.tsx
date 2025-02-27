@@ -20,7 +20,6 @@ export default function SignInForm() {
       toast.error("Please fill in all the details!");
       return;
     }
-    console.log(email, password);
     try {
       setIsLoading(true);
       const { data, error } = await login({
@@ -29,10 +28,9 @@ export default function SignInForm() {
       });
       if (error) {
         toast.error(error);
-        console.log(error);
       }
       if (data) {
-        toast.success(`You are now logged in! ${data.user.email}`);
+        toast.success("You are now logged in!");
         router.push("/app");
       }
     } catch (error: any) {

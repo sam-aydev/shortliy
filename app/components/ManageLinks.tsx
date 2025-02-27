@@ -1,16 +1,20 @@
 "use client";
+import { deleteLinkById } from "@/utils/actions/server";
 import { useLinks } from "@/utils/hooks/useLinks";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { FcDeleteRow } from "react-icons/fc";
 import { GrView } from "react-icons/gr";
 import { LuView } from "react-icons/lu";
 import { MdDeleteForever } from "react-icons/md";
+import { ClipLoader } from "react-spinners";
 
 export default function ManageLinks() {
   const [isOn, setIsOn] = useState(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(
     function () {
@@ -36,8 +40,31 @@ export default function ManageLinks() {
 
   const { links, LinksError, isLoadingLinks }: any = useLinks();
 
-  console.log(links);
+  if (isLoadingLinks) {
+    return (
+      <div className="flex items-center h-screen justify-center">
+        <ClipLoader color="#000000" loading={isLoadingLinks} size={70} />
+      </div>
+    );
+  }
 
+  async function handleDelete(id: number) {
+    try {
+      setIsLoading(true);
+      const { message, error } = await deleteLinkById(id);
+      if (error) {
+        toast.error(error);
+      }
+      if (message) {
+        toast.success(message);
+      }
+    } catch (error: any) {
+      toast.error(error);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <div className="min-h-screen px-3">
       {links?.data ? (
@@ -50,7 +77,7 @@ export default function ManageLinks() {
                 <div className="w-[30%]">Shortened Link</div>
               </div>
             </div>
-            <div className="relative -z-50 w-full mx-auto mt-2 ">
+            <div className="relative z-50 w-full mx-auto mt-2 ">
               {links?.data?.map((item: any) => (
                 <div
                   key={item.id}
@@ -70,11 +97,22 @@ export default function ManageLinks() {
                       ref={menuRef}
                       className=" flex flex-col space-y-2 right-0 justify-end mt-7  bg-white rounded-md p-2 absolute"
                     >
-                      <button className="hover:text-slate-400  flex items-center space-x-2">
+                      <button className="hover:text-green-700   flex items-center space-x-2">
                         <GrView className="size-5" /> <span>View</span>
                       </button>
-                      <button className="hover:text-red-700 flex items-center space-x-2">
-                        <MdDeleteForever className="size-5" />{" "}
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="hover:text-red-700 flex items-center space-x-2"
+                      >
+                        {isLoading ? (
+                          <ClipLoader
+                            color="red"
+                            loading={isLoading}
+                            size={15}
+                          />
+                        ) : (
+                          <MdDeleteForever className="size-5" />
+                        )}{" "}
                         <span>Delete</span>
                       </button>
                     </div>

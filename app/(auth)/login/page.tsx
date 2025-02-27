@@ -7,7 +7,7 @@ export default async function Page() {
   const { data, error }: any = await getUser();
 
   if (data) redirect("/app");
-  console.log(data);
+
   return (
     <>
       <NavBar />
