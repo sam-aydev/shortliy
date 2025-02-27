@@ -91,7 +91,7 @@ export default function ShortenLink() {
   return (
     <>
       <div className="">
-        <div className="w-full flex justify-center items-center h-screen">
+        <div className="w-full flex justify-center items-center h-screen md:w-2/3 md:mx-auto">
           <div className="w-full px-3">
             <form
               onSubmit={handleLinkShortening}
@@ -101,14 +101,7 @@ export default function ShortenLink() {
                 type="text"
                 disabled={isLoading}
                 value={original_link}
-                onChange={(e: any) => {
-                  setOriginalLink(e.target.value);
-                  if (original_link && !isURL(original_link)) {
-                    setError("Please enter a valid url!");
-                  } else {
-                    setError("");
-                  }
-                }}
+                onChange={(e: any) => setOriginalLink(e.target.value)}
                 placeholder="Your Original link..."
                 className="p-2 border-2 border-black rounded-md"
               />

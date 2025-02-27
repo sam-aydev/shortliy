@@ -4,7 +4,9 @@ export default function NavBar() {
   return (
     <div className="bg-transparent fixed w-full bg-gradient-to-t from-white  to-slate-300 flex justify-between items-center p-4">
       <div>
-        <h2 className="font-bold text-2xl">Shortl.iy</h2>
+        <Link href={"/"}>
+          <h2 className="font-bold text-2xl">Shortl.iy</h2>
+        </Link>
       </div>
       <div className="flex space-x-4">
         <Link href="/signup">

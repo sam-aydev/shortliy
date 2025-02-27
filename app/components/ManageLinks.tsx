@@ -68,7 +68,7 @@ export default function ManageLinks() {
   return (
     <div className="min-h-screen px-3">
       {links?.data ? (
-        <div className="text-sm font-bold w-full mt-3">
+        <div className="text-sm font-bold w-full mt-3 md:w-2/3 md:mx-auto">
           <div className=" ">
             <div className=" w-full mx-auto">
               <div className="gap-4  grid grid-cols-4 px-3 text-center bg-black text-white py-2 rounded">
@@ -97,9 +97,11 @@ export default function ManageLinks() {
                       ref={menuRef}
                       className=" flex flex-col space-y-2 right-0 justify-end mt-7  bg-white rounded-md p-2 absolute"
                     >
-                      <button className="hover:text-green-700   flex items-center space-x-2">
-                        <GrView className="size-5" /> <span>View</span>
-                      </button>
+                      <Link href={`/app/manage/${item.id}`}>
+                        <button className="hover:text-green-700   flex items-center space-x-2">
+                          <GrView className="size-5" /> <span>View</span>
+                        </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(item.id)}
                         className="hover:text-red-700 flex items-center space-x-2"
