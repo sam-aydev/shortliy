@@ -37,3 +37,26 @@ export async function getLinks() {
     };
   }
 }
+
+export async function getLinkById(id: number) {
+  try {
+    const supabase = createClient();
+
+    const { data, error } = await supabase
+      .from("Links")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    return { data: data };
+  } catch (error) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured!",
+    };
+  }
+}

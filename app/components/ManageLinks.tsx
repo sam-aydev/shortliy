@@ -68,7 +68,7 @@ export default function ManageLinks() {
   return (
     <div className="min-h-screen px-3">
       {links?.data ? (
-        <div className="text-sm font-bold w-full mt-3 md:w-2/3 md:mx-auto">
+        <div className="text-sm font-bold w-full mt-3 lg:w-2/3 md:mx-auto">
           <div className=" ">
             <div className=" w-full mx-auto">
               <div className="gap-4  grid grid-cols-4 px-3 text-center bg-black text-white py-2 rounded">
