@@ -7,7 +7,7 @@ export function useLink(id: number) {
     error: linkError,
     isLoading: isLoadingLink,
   } = useQuery({
-    queryFn: () => getLinkById,
+    queryFn: () => getLinkById(id),
     queryKey: ["Links", id],
     staleTime: 0,
     // refetchInterval: 0.5,
