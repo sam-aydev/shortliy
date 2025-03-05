@@ -1,4 +1,4 @@
-import { createClient } from "../supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 
@@ -9,7 +9,7 @@ export default async function Page({params}:{
       const shortenUrl = (await params).shortenUrl as string;
       const supabase = await createClient()
 
-      const {data, error } = await supabase.from("Links").select("original_link", "click_count").eq("shortened_link", `${process.env.NEXT_PUBLIC_BASE_URL}/${shortenUrl}`).single()
+      const {data, error } = await supabase.from("Links").select("original_link, click_count").eq("shortened_link", `${process.env.NEXT_PUBLIC_BASE_URL}/${shortenUrl}`).single()
 
       if(error || !data){
 
