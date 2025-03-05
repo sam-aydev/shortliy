@@ -21,6 +21,10 @@ export default async function Page({params}:{
 
       await supabase.from("Links").update({click_count: data.click_count + 1}).eq("shortened_link", `${process.env.NEXT_PUBLIC_BASE_URL}/${shortenUrl}`)
 
+      let originalUrl = data.original_link
+      if(!originalUrl.startsWith("http") || !originalUrl.startsWith("https") ){
+        originalUrl = "https://" + originalUrl 
+      }
       redirect(data.original_link)
 }
     

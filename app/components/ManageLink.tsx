@@ -35,7 +35,7 @@ export default function ManageLink({ id }: any) {
           <div className="flex flex-col justify-between items-center bg-slate-100  rounded-lg p-2 size-36 sm:w-48">
             <h2 className="font-semibold text-[16px]">SHORTENED LINK </h2>
             <div className="flex w-full space-x-2  text-xs font-semibold items-center mt-2 md:text-sm">
-              <p className="w-4/5 mx-auto">{link?.data?.shortened_link}</p>
+              <p className="w-4/5 ">{link?.data?.shortened_link}</p>
               <BiCopy className="size-4" />
             </div>
           </div>
