@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import { createClient } from "../supabase/server";
 import { redirect } from "next/navigation";
 import { customAlphabet } from "nanoid";
+import QRCode from "qrcode"
+
 
 export async function signup({
   email,
@@ -113,12 +115,23 @@ export async function LinkShortener({
     const alias = nanoid();
     const shortened_link = `${process.env.NEXT_PUBLIC_BASE_URL}/${alias}`;
 
+    const qrBuffer = await QRCode.toBuffer(shortened_link)
+
+    const filePath = `/${alias}`
+
     const supabase = await createClient();
 
+    const { data: qrImage, error: qrImageError } = await supabase.storage.from("qr_codes").upload(filePath, qrBuffer, { contentType: "image/png"})
+
+    if(qrImageError) { return { error: qrImageError.message }}
+    
+    const {data: publicUrlData} = await supabase.storage.from("qr_codes").getPublicUrl(filePath)
+   
     const { data, error } = await supabase.from("Links").insert({
       original_link,
       shortened_link,
       user_id,
+      qr_code_url: publicUrlData.publicUrl
     });
 
     if (error) {

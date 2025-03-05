@@ -51,16 +51,17 @@ export default function ShortenLink() {
 
     try {
       setIsLoading(true);
-
+      
       const { data: user } = await getUser();
-
+      
       const user_id = user?.id as string;
-
-      const { data, error } = await LinkShortener({ original_link, user_id });
+      
+      const { data, error } : any = await LinkShortener({ original_link, user_id });
       if (error) {
         toast.error(error);
         return;
       }
+     
       toast.success("You just shortened a link!");
     } catch (error: any) {
       toast.error(error);
