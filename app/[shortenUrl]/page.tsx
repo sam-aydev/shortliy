@@ -25,7 +25,7 @@ export default async function Page({params}:{
       if(!originalUrl.startsWith("http") || !originalUrl.startsWith("https") ){
         originalUrl = "https://" + originalUrl 
       }
-      redirect(data.original_link)
+      redirect(originalUrl)
 }
     
 
