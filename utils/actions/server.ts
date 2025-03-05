@@ -151,6 +151,8 @@ export async function deleteLinkById(id: number) {
   try {
     const supabase = await createClient();
 
+    // const {error: bucketError} = await supabase.storage.from("qr_codes").remove(["qr_codes/alias.png"])
+
     const { error } = await supabase.from("Links").delete().eq("id", id);
 
     if (error) {

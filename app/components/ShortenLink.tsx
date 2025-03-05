@@ -153,9 +153,12 @@ export default function ShortenLink() {
                               ref={menuRef}
                               className=" flex flex-col space-y-2 right-0 justify-end mt-7 bg-white rounded-md p-2 absolute"
                             >
+                              <Link href={`/app/manage/${item.id}`}>
+
                               <button className="hover:text-green-700  flex items-center space-x-2">
                                 <GrView className="size-5" /> <span>View</span>
                               </button>
+                              </Link>
                               <button
                                 onClick={() => handleDelete(item.id)}
                                 className="hover:text-red-700 flex items-center space-x-2"

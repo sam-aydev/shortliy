@@ -34,8 +34,8 @@ export default function ManageLink({ id }: any) {
           </div>
           <div className="flex flex-col justify-between items-center bg-slate-100  rounded-lg p-2 size-36 sm:w-48">
             <h2 className="font-semibold text-[16px]">SHORTENED LINK </h2>
-            <div className="flex space-x-2  text-xs font-semibold items-center mt-2 md:text-sm">
-              <p>{link?.data?.shortened_link}</p>
+            <div className="flex w-full space-x-2  text-xs font-semibold items-center mt-2 md:text-sm">
+              <p className="w-4/5 mx-auto">{link?.data?.shortened_link}</p>
               <BiCopy className="size-4" />
             </div>
           </div>
@@ -60,15 +60,14 @@ export default function ManageLink({ id }: any) {
           </div>
         </div>
 
-          <div className="flex justify-betweeen items-center">
+          {/* <div className="flex justify-betweeen items-center"> */}
         <button
           onClick={() => router.back()}
           className="hover:bg-slate-800 mt-4 rounded-md  p-2 bg-black text-white"
         >
           Go Back
         </button>
-            <HiShare className="size-6 text-black"/>
-          </div>
+          {/* </div> */}
       </div>
     </div>
   );
