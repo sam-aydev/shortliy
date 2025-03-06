@@ -1,7 +1,9 @@
 "use client";
+import { timeAgo } from "@/utils/actions/client";
 import { deleteLinkById } from "@/utils/actions/server";
 import { useLinks } from "@/utils/hooks/useLinks";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { BiDotsVerticalRounded } from "react-icons/bi";
@@ -15,6 +17,9 @@ export default function ManageLinks() {
   const [isOn, setIsOn] = useState(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
   useEffect(
     function () {
@@ -38,7 +43,20 @@ export default function ManageLinks() {
     [isOn, setIsOn]
   );
 
-  const { links, LinksError, isLoadingLinks }: any = useLinks();
+  const pageSize: number = 10;
+  const page = Number(searchParams.get("page")) || 1;
+  const { links, LinksError, isLoadingLinks }: any = useLinks({
+    page,
+    pageSize,
+  });
+
+  const totalPages = Math.ceil(links?.count.count / pageSize);
+
+  function updatePage(newPage: any) {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", newPage.toString());
+    replace(`${pathname}?${params.toString()}`);
+  }
 
   if (isLoadingLinks) {
     return (
@@ -83,7 +101,7 @@ export default function ManageLinks() {
                   key={item.id}
                   className=" bg-slate-200 mb-2 px-2 gap-4 grid text-xs grid-cols-4 text-black py-2 rounded"
                 >
-                  <div className="text-center">2hr</div>
+                  <div className="text-center">{timeAgo(item.created_at)}</div>
                   <div className="">{item.original_link.slice(0, 9)}...</div>
                   <div className="">{item.shortened_link.slice(0, 15)}...</div>
                   <div
@@ -129,6 +147,24 @@ export default function ManageLinks() {
           <h2 className="font-bold text-lg w-3/4 mx-auto text-center">
             No Shortened Links Yet!
           </h2>
+        </div>
+      )}
+      {pageSize > 10 && (
+        <div className="mt-4 flex justify-between items-center">
+          <button
+            className="hover:border-black bg-white border-2 rounded-md p-2 border-slate-800"
+            disabled={page === 1}
+            onClick={() => updatePage(page - 1)}
+          >
+            Previous
+          </button>
+          <button
+            className="hover:border-slate-400 bg-black text-white border-2 rounded-md p-2 border-slate-200"
+            disabled={page >= totalPages}
+            onClick={() => updatePage(page + 1)}
+          >
+            Next
+          </button>
         </div>
       )}
     </div>

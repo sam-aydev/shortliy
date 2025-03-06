@@ -1,5 +1,6 @@
 "use client";
 
+import { timeAgo } from "@/utils/actions/client";
 import { deleteLinkById, getUser, LinkShortener } from "@/utils/actions/server";
 import { useFiveLinks } from "@/utils/hooks/useFiveLinks";
 import Link from "next/link";
@@ -135,7 +136,7 @@ export default function ShortenLink() {
                           key={item.id}
                           className="bg-slate-200 mb-2 px-2 gap-4 grid text-xs grid-cols-4 text-black py-2 rounded"
                         >
-                          <div className="text-center">2hr</div>
+                          <div className="text-center">{timeAgo(item.created_at)}</div>
                           <div className="">
                             {item.original_link.slice(0, 9)}...
                           </div>
