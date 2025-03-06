@@ -149,7 +149,7 @@ export default function ManageLinks() {
           </h2>
         </div>
       )}
-      {pageSize > 10 && (
+      {links?.data?.length > 10 && (
         <div className="mt-4 flex justify-between items-center">
           <button
             className="hover:border-black bg-white border-2 rounded-md p-2 border-slate-800"
