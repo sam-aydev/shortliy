@@ -10,7 +10,7 @@ export function useFiveLinks() {
     queryFn: getFiveLink,
     queryKey: ["Links"],
     staleTime: 0,
-    // refetchInterval: 0.5,
+    refetchInterval: 0.5,
   });
   return {
     fiveLinks,

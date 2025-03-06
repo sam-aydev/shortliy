@@ -10,7 +10,7 @@ export function useLink(id: number) {
     queryFn: () => getLinkById(id),
     queryKey: ["Links", id],
     staleTime: 0,
-    // refetchInterval: 0.5,
+    refetchInterval: 0.5,
   });
   return {
     link,

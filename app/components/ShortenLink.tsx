@@ -3,20 +3,19 @@
 import { timeAgo } from "@/utils/actions/client";
 import { deleteLinkById, getUser, LinkShortener } from "@/utils/actions/server";
 import { useFiveLinks } from "@/utils/hooks/useFiveLinks";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
 import { MdDeleteForever } from "react-icons/md";
 import { ClipLoader } from "react-spinners";
-import isURL from "validator/lib/isURL";
+
+import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function ShortenLink() {
   const [original_link, setOriginalLink] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingLink, setIsLoadingLink] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
   const [isOn, setIsOn] = useState(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -43,26 +42,34 @@ export default function ShortenLink() {
   );
   const { fiveLinks, fiveLinksError, isLoadingFiveLinks }: any = useFiveLinks();
 
+  function isValidUrl(url: string) {
+    const regex =
+      /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,})(:\d+)?(\/[\w.-]*)*(\?[\w=&%-]*)?(#[\w-]*)?$/i;
+    return regex.test(url);
+  }
   async function handleLinkShortening(e: any) {
     e.preventDefault();
-    if (!original_link || error) {
+    if (!original_link || !isValidUrl(original_link)) {
       toast.error("Please enter a valid link");
       return;
     }
 
     try {
       setIsLoading(true);
-      
+
       const { data: user } = await getUser();
-      
+
       const user_id = user?.id as string;
-      
-      const { data, error } : any = await LinkShortener({ original_link, user_id });
+
+      const { data, error }: any = await LinkShortener({
+        original_link,
+        user_id,
+      });
       if (error) {
         toast.error(error);
         return;
       }
-     
+
       toast.success("You just shortened a link!");
     } catch (error: any) {
       toast.error(error);
@@ -136,7 +143,9 @@ export default function ShortenLink() {
                           key={item.id}
                           className="bg-slate-200 mb-2 px-2 gap-4 grid text-xs grid-cols-4 text-black py-2 rounded"
                         >
-                          <div className="text-center">{timeAgo(item.created_at)}</div>
+                          <div className="text-center">
+                            {timeAgo(item.created_at)}
+                          </div>
                           <div className="">
                             {item.original_link.slice(0, 9)}...
                           </div>
@@ -155,10 +164,10 @@ export default function ShortenLink() {
                               className=" flex flex-col space-y-2 right-0 justify-end mt-7 bg-white rounded-md p-2 absolute"
                             >
                               <Link href={`/app/manage/${item.id}`}>
-
-                              <button className="hover:text-green-700  flex items-center space-x-2">
-                                <GrView className="size-5" /> <span>View</span>
-                              </button>
+                                <button className="hover:text-green-700  flex items-center space-x-2">
+                                  <GrView className="size-5" />{" "}
+                                  <span>View</span>
+                                </button>
                               </Link>
                               <button
                                 onClick={() => handleDelete(item.id)}

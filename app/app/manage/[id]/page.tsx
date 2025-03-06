@@ -1,4 +1,5 @@
-import ManageLink from "@/app/components/ManageLink";
+import LinkItem from "@/app/components/LinkItem";
+import { Metadata } from "next";
 
 export default async function Page({
   params,
@@ -7,5 +8,10 @@ export default async function Page({
 }) {
   const id = (await params).id as string;
 
-  return <ManageLink id={id} />;
+  return <LinkItem id={id} />;
 }
+
+export const metadata: Metadata = {
+  title: "Snp.iy",
+  description: "Link Info!",
+};
