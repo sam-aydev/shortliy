@@ -4,7 +4,15 @@ export async function getFiveLink() {
   try {
     const supabase = createClient();
 
-    const { data, error } = await supabase.from("Links").select("*").limit(5);
+    const { data: user, error: userError } = await supabase.auth.getUser();
+    if (userError) {
+      return { error: userError.message };
+    }
+    const { data, error } = await supabase
+      .from("Links")
+      .select("*")
+      .limit(5)
+      .eq("user_id", user.user.id);
 
     if (error) {
       return { error: error.message };
@@ -19,14 +27,22 @@ export async function getFiveLink() {
   }
 }
 
-export async function getPaginatedLinks(page=1, pageSize=10) {
-
+export async function getPaginatedLinks(page = 1, pageSize = 10) {
   try {
     const supabase = createClient();
-    const from = (page - 1) * pageSize
+    const from = (page - 1) * pageSize;
     const to = from + pageSize - 1;
 
-    const { data, error, count } = await supabase.from("Links").select("*", { count : "exact"}).order("created_at", { ascending: false}).range(from, to);
+    const { data: user, error: userError } = await supabase.auth.getUser();
+    if (userError) {
+      return { error: userError.message };
+    }
+    const { data, error, count } = await supabase
+      .from("Links")
+      .select("*", { count: "exact" })
+      .order("created_at", { ascending: false })
+      .range(from, to)
+      .eq("user_id", user.user?.id);
 
     if (error) {
       return { error: error.message };
@@ -64,22 +80,19 @@ export async function getLinkById(id: number) {
   }
 }
 
+export function timeAgo(timestamp: any) {
+  const pastDate: any = new Date(timestamp);
+  const now = Date.now();
+  const diffMs = now - pastDate;
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-export function timeAgo(timestamp: any){
-  const pastDate : any = new Date(timestamp)
-  const now = Date.now()
-  const diffMs = now - pastDate
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-
-  if(diffHours < 1){
-    const diffMinutes = Math.floor(diffMs / (1000 * 60))
-    return diffMinutes === 0 ? "Just now" : `${diffMinutes} min ago`
-
-  }else if(diffHours >= 1 && diffDays < 1){
-
-    return diffHours === 1 ? "1 hour ago" : `${diffHours} hrs ago`
-  }else{
-    return diffDays === 1 ? "1 day ago" : `${diffDays} days ago`
+  if (diffHours < 1) {
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    return diffMinutes === 0 ? "Just now" : `${diffMinutes} min ago`;
+  } else if (diffHours >= 1 && diffDays < 1) {
+    return diffHours === 1 ? "1 hour ago" : `${diffHours} hrs ago`;
+  } else {
+    return diffDays === 1 ? "1 day ago" : `${diffDays} days ago`;
   }
 }
