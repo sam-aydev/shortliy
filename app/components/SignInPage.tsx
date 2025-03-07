@@ -72,15 +72,22 @@ export default function SignInForm() {
           <ClipLoader color="#fffff" loading={isLoading} size={15} />
           <span className="px-[2px]">Login To Shortily! </span>
         </button>
-        <p>
+        <div className="flex justify-between items-center">
+        <p className="text-sm w-1/2  md:text-[16px]">
           Don't have an account yet?{" "}
           <Link
             href={"/signup"}
-            className="hover:text-green-600 hover:underline "
+            className="hover:text-green-600 hover:underline duration-300"
           >
             Create An Account!
           </Link>
         </p>
+        <p className="text-sm font-semibold hover:text-slate-800 duration-300">
+          <Link href="/forgot_password">
+          Forgot Password?
+          </Link>
+          </p>
+        </div>
       </form>
     </>
   );

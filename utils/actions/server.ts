@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 import { customAlphabet } from "nanoid";
 import QRCode from "qrcode"
 
-
 export async function signup({
   email,
   password,
@@ -161,6 +160,49 @@ export async function deleteLinkById(id: number) {
 
     return { message: "Link deleted!" };
   } catch (error: any) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured!",
+    };
+  }
+}
+
+
+export async function sendResetLink(email: string){
+  try{
+    const supabase = await createClient();
+
+    const resetLink= `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password`
+    const { data, error } : any = await supabase.auth.resetPasswordForEmail(email, 
+      {redirectTo: resetLink}
+    )
+
+    if(error) return { error : error.message}
+
+
+    return { message: "Reset email sent!" };
+
+  }catch (error: any) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured!",
+    };
+  }
+} 
+
+
+export async function updateUser(password: string){
+  try{
+    const supabase = await createClient();
+
+    const { data, error } : any = await supabase.auth.updateUser({password})
+
+    if(error) return { error : error.message}
+
+
+    return { message: "Password has been reset" };
+
+  }catch (error: any) {
     return {
       error:
         error instanceof Error ? error.message : "An unexpected error occured!",

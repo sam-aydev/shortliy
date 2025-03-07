@@ -21,7 +21,7 @@ export default function LinkItem({ id }: any) {
       </div>
     );
   }
-  console.log(link?.data);
+  
   function handleCopy(data: string, id: any){
     navigator.clipboard.writeText(data).then(()=> {
       setCopied(id)

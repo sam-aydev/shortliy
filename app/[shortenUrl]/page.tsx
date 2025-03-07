@@ -7,6 +7,11 @@ export default async function Page({params}:{
     params: Promise<{ shortenUrl: string }>;
     }) {
       const shortenUrl = (await params).shortenUrl as string;
+      const storedData = JSON.parse(localStorage.getItem("shortened_link") || "{}")
+
+      if(storedData === `${process.env.NEXT_PUBLIC_BASE_URL}/${shortenUrl}`){
+        redirect(storedData)
+      }
       const supabase = await createClient()
 
       const {data, error } = await supabase.from("Links").select("original_link, click_count").eq("shortened_link", `${process.env.NEXT_PUBLIC_BASE_URL}/${shortenUrl}`).single()

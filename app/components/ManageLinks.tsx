@@ -50,13 +50,14 @@ export default function ManageLinks() {
     pageSize,
   });
 
-  const totalPages = Math.ceil(links?.count.count / pageSize);
+  const totalPages = Math.ceil(links?.count / pageSize);
 
   function updatePage(newPage: any) {
     const params = new URLSearchParams(searchParams);
     params.set("page", newPage.toString());
     replace(`${pathname}?${params.toString()}`);
   }
+
 
   if (isLoadingLinks) {
     return (
@@ -85,7 +86,7 @@ export default function ManageLinks() {
   }
   return (
     <div className="min-h-screen px-3">
-      {links?.data ? (
+      {links?.data.length > 0 ? (
         <div className="text-sm font-bold w-full mt-3 lg:w-2/3 md:mx-auto">
           <div className=" ">
             <div className=" w-full mx-auto">
@@ -149,7 +150,7 @@ export default function ManageLinks() {
           </h2>
         </div>
       )}
-      {links?.data?.length > 10 && (
+      {links?.count > 10 && (
         <div className="mt-4 flex justify-between items-center">
           <button
             className="hover:border-black bg-white border-2 rounded-md p-2 border-slate-800"
@@ -158,6 +159,7 @@ export default function ManageLinks() {
           >
             Previous
           </button>
+          <span>Page {page} of {totalPages}</span>
           <button
             className="hover:border-slate-400 bg-black text-white border-2 rounded-md p-2 border-slate-200"
             disabled={page >= totalPages}
