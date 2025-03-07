@@ -35,23 +35,8 @@ export default function HomePage() {
     setShortenedURL(shortener);
     localStorage.setItem("shortened_link", shortener);
 
-    // try {
-    //   setIsLoading(true);
+    document.cookie = `shortened_link=${shortenedUrl}; path=/` 
 
-    //   const user_id = "unknown";
-
-    //   const { data, error } = await LinkShortener({ original_link, user_id });
-    //   if (error) {
-    //     toast.error(error);
-    //     return;
-    //   }
-    //   toast.success("You just shortened a link!");
-    // } catch (error: any) {
-    //   toast.error(error);
-    //   setIsLoading(false);
-    // } finally {
-    //   setIsLoading(false);
-    // }
   }
   return (
     <div>
