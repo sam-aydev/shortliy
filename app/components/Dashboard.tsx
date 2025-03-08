@@ -22,9 +22,9 @@ import { ClipLoader } from "react-spinners";
 export default function Dashboard({ user }: any) {
   const today = new Date()
   const thirtyDaysAgo = new Date()
-  thirtyDaysAgo.setDate(today.getDate - 30)
+  thirtyDaysAgo.setDate(today.getDate() - 30)
   const [isOn, setIsOn] = useState(null);
-  const [range, setRange] = useState<any>({ from : thirtyDatsAgo, to: today});
+  const [range, setRange] = useState<any>({ from : thirtyDaysAgo, to: today});
   const [showPicker, setShowPicker] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
