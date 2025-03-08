@@ -97,15 +97,42 @@ export function timeAgo(timestamp: any) {
   }
 }
 
-
 export async function getAllLinks() {
   try {
     const supabase = createClient();
     const { data: user, error: userError } = await supabase.auth.getUser();
 
-    if(userError)  return { error: userError.message }
-    const { data, error } = await supabase.from("Links").select("*").eq("user_id", user.user?.id);
+    if (userError) return { error: userError.message };
+    const { data, error } = await supabase
+      .from("Links")
+      .select("*")
+      .eq("user_id", user?.user?.id);
 
+    if (error) {
+      return { error: error.message };
+    }
+
+    return { data: data };
+  } catch (error: any) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured!",
+    };
+  }
+}
+
+export async function getDaysData({ start, end }: any) {
+  try {
+    const supabase = createClient();
+    const { data: user, error: userError } = await supabase.auth.getUser();
+
+    if (userError) return { error: userError.message };
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*")
+      .gte("created_at", start)
+      .lte("created_at", end)
+      .eq("user_id", user?.user?.id);
     if (error) {
       return { error: error.message };
     }
