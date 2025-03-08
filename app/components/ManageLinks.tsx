@@ -1,7 +1,7 @@
 "use client";
 import { timeAgo } from "@/utils/actions/client";
 import { deleteLinkById } from "@/utils/actions/server";
-import { useLinks } from "@/utils/hooks/useLinks";
+import { usePaginatedLinks } from "@/utils/hooks/usePaginatedLinks";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -45,7 +45,7 @@ export default function ManageLinks() {
 
   const pageSize: number = 10;
   const page = Number(searchParams.get("page")) || 1;
-  const { links, LinksError, isLoadingLinks }: any = useLinks({
+  const { links, LinksError, isLoadingLinks }: any = usePaginatedLinks({
     page,
     pageSize,
   });
@@ -57,7 +57,6 @@ export default function ManageLinks() {
     params.set("page", newPage.toString());
     replace(`${pathname}?${params.toString()}`);
   }
-
 
   if (isLoadingLinks) {
     return (
@@ -159,7 +158,9 @@ export default function ManageLinks() {
           >
             Previous
           </button>
-          <span>Page {page} of {totalPages}</span>
+          <span>
+            Page {page} of {totalPages}
+          </span>
           <button
             className="hover:border-slate-400 bg-black text-white border-2 rounded-md p-2 border-slate-200"
             disabled={page >= totalPages}

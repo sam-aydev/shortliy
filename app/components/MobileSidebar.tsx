@@ -70,7 +70,7 @@ export default function MobileSidebar({ isOpen, setIsOpen }: any) {
           <Link href="/app/manage">
             <li
               className={
-                pathname === "/app/manage" || pathname === "/app/manage/[id]"
+                pathname.startsWith("/app/manage")
                   ? "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-white  rounded-md bg-black "
                   : "p-2 mt-4 flex items-center space-x-2 cursor-pointer text-black  rounded-md hover:bg-black hover:text-white"
               }

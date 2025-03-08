@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 import MobileSidebar from "./MobileSidebar";
 import { LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu";
 
-export default function AppLayout() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function AppLayout({user}: any) {
+  const [isOpen, setIsOpen] = useState(false); 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
 
@@ -50,7 +50,7 @@ export default function AppLayout() {
           <h2 className="text-xl font-semibold">Shortliy</h2>
         </div>
         <div className="flex items-center justify-between space-x-2 sm:space-x-4">
-          <p className="text-sm font-semibold md:text-lg">Welcome Samx</p>
+          <p className="text-sm font-semibold md:text-lg">Welcome {user?.data?.user_metadata?.username}</p>
           <button
             disabled={isLoggingOut}
             onClick={handleLogout}

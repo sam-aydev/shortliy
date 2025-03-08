@@ -35,7 +35,7 @@ export default function HomePage() {
     setShortenedURL(shortener);
     localStorage.setItem("shortened_link", shortener);
 
-    document.cookie = `shortened_link=${shortenedUrl}; path=/` 
+    return document.cookie = `shortened_link=${shortenedUrl}; path=/` 
 
   }
   return (

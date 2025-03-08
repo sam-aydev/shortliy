@@ -2,11 +2,13 @@ import { PropsWithChildren } from "react";
 import AppLayout from "../components/AppLayout";
 
 import DesktopSidebar from "../components/DesktopSidebar";
+import { getUser } from "@/utils/actions/server";
 
-export default function Layout({ children }: PropsWithChildren) {
+export default async function Layout({ children }: PropsWithChildren) {
+  const data = await getUser()
   return (
     <div>
-      <AppLayout />
+      <AppLayout user={data} />
 
       <div className="md:grid md:grid-cols-12 ">
         <DesktopSidebar />

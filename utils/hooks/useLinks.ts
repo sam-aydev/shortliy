@@ -1,31 +1,17 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getPaginatedLinks } from "../actions/client";
+import { useQuery } from "@tanstack/react-query";
+import { getAllLinks } from "../actions/client";
 
-export function useLinks({
-  page,
-  pageSize,
-}: {
-  page: number;
-  pageSize: number;
-}) {
-  const queryClient = useQueryClient();
+export function useLinks() {
   const {
     data: links,
     error: linksError,
     isLoading: isLoadingLinks,
   } = useQuery({
-    queryFn: () => getPaginatedLinks(page, pageSize),
-    queryKey: ["Links", page],
-    placeholderData: (prevData) => prevData,
+    queryFn: getAllLinks,
+    queryKey: ["Links"],
     staleTime: 0,
     refetchInterval: 0.5,
   });
-
-  queryClient.prefetchQuery({
-    queryKey: ["Links", page + 1],
-    queryFn: () => getPaginatedLinks(page + 1),
-  });
-
   return {
     links,
     linksError,

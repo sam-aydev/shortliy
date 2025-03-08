@@ -96,3 +96,25 @@ export function timeAgo(timestamp: any) {
     return diffDays === 1 ? "1 day ago" : `${diffDays} days ago`;
   }
 }
+
+
+export async function getAllLinks() {
+  try {
+    const supabase = createClient();
+    const { data: user, error: userError } = await supabase.auth.getUser();
+
+    if(userError)  return { error: userError.message }
+    const { data, error } = await supabase.from("Links").select("*").eq("user_id", user.user?.id);
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    return { data: data };
+  } catch (error: any) {
+    return {
+      error:
+        error instanceof Error ? error.message : "An unexpected error occured!",
+    };
+  }
+}
