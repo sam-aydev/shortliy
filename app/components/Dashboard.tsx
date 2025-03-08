@@ -47,7 +47,7 @@ export default function Dashboard({ user }: any) {
   return (
     <div className=" px-4 min-h-screen">
       <div className="mt-4">
-        <p>Hi {user?.data?.user_metadata?.username}</p>
+        <p className="font-bold">Hi {user?.data?.user_metadata?.username}</p>
       </div>
 
       <div className="flex  w-full  mt-10 ">
@@ -60,7 +60,7 @@ export default function Dashboard({ user }: any) {
         </div>
         <div className="flex flex-col justify-between  p-3 border-slate-800 rounded-md  mx-auto  size-48 shadow-2xl ">
           <p className="font-semibold text-lg flex items-center justify-between ">
-            Total Clicks{" "}
+            TOTAL CLICKS{" "}
             <TbClick className="size-8 p-1 rounded-full bg-slate-200" />{" "}
           </p>
           <p className="text-center font-semibold ">0</p>

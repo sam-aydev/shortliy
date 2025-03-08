@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 export default function DesktopSidebar() {
   const pathname = usePathname();
   return (
-    <div className=" md:grid md:col-span-4 lg:col-span-3  hidden  h-screen shadow-xl bg-white  rounded-r-xl">
+    <div className=" md:grid md:col-span-4 lg:col-span-3  hidden  min-h-screen shadow-xl bg-white  rounded-r-xl">
       <ul className="flex flex-col space-y-2 px-3 w-full">
         <Link href="/app">
           <li
@@ -35,7 +35,7 @@ export default function DesktopSidebar() {
         <Link href="/app/manage">
           <li
             className={
-              pathname === "/app/manage " || pathname === "/app/manage/*"
+              pathname.startsWith("/app/manage")
                 ? "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-white bg-black rounded-md"
                 : "p-2 w-full mt-4 flex items-center space-x-2 cursor-pointer text-black hover:bg-black hover:text-white rounded-md"
             }
