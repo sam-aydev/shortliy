@@ -128,7 +128,7 @@ export async function getDaysData({ start, end }: any) {
 
     if (userError) return { error: userError.message };
     const { data, error } = await supabase
-      .from("orders")
+      .from("Links")
       .select("*")
       .gte("created_at", start)
       .lte("created_at", end)

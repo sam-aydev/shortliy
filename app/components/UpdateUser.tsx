@@ -42,13 +42,13 @@ export default function UpdateUser(){
       <>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-2 w-full">
           <div className="">
-            <label className="block">Email:</label>
+            <label className="block">New Password:</label>
             <input
               disabled={isLoading}
               value={password}
               onChange={(e: any) => setPassword(e.target.value)}
               type="email"
-              placeholder="Your email..."
+              placeholder="Your new password..."
               className="p-2 border-black border-2 rounded w-full"
             />
           </div>

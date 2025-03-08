@@ -16,6 +16,8 @@ import { useEffect, useRef, useState } from "react";
 import { useFiveLinks } from "@/utils/hooks/useFiveLinks";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { useDaysData } from "@/utils/hooks/useLinksDays";
+import { ClipLoader } from "react-spinners";
 
 export default function Dashboard({ user }: any) {
   const [isOn, setIsOn] = useState(null);
@@ -24,11 +26,13 @@ export default function Dashboard({ user }: any) {
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const menuRef = useRef<HTMLDivElement>(null);
+  console.log(range?.from?.toISOString());
+  const start = range?.from?.toISOString();
+  const end = range?.to?.toISOString();
 
   useEffect(
     function () {
-      if (!isOn || !showPicker) return;
-      function handleOutsideClick(event: MouseEvent): void {
+      function handleOutsideClick(event: MouseEvent) {
         if (
           (event.target as Node) &&
           menuRef.current &&
@@ -40,7 +44,7 @@ export default function Dashboard({ user }: any) {
 
       const handleClickOutside = (event: MouseEvent) => {
         if (
-          (event.target as Node) && 
+          (event.target as Node) &&
           popoverRef.current &&
           !popoverRef.current.contains(event.target as Node)
         ) {
@@ -62,19 +66,35 @@ export default function Dashboard({ user }: any) {
 
   const { fiveLinks, fiveLinksError, isLoadingFiveLinks }: any = useFiveLinks();
 
-  const { links, linksError, isLoadingLinks }: any = useLinks();
+  const { linksDays, linksDaysError, isLoadingLinksDays } = useDaysData({
+    start,
+    end,
+  });
+  console.log(linksDays);
 
-  console.log(links);
-
-  const clickCounts: any = links?.data?.map((item: any) => item.click_count);
+  const clickCounts: any = linksDays?.data?.map(
+    (item: any) => item.click_count
+  );
   const totalClickCount: any = clickCounts?.reduce(
     (acc: any, count: any) => acc + count,
     0
   );
+
+  if (isLoadingLinksDays || isLoadingFiveLinks) {
+    return (
+      <div className="flex items-center h-screen justify-center">
+        <ClipLoader
+          color="#000000"
+          loading={isLoadingLinksDays || isLoadingFiveLinks}
+          size={70}
+        />
+      </div>
+    );
+  }
   return (
     <div className=" px-4 min-h-screen lg:w-2/3 mx-auto">
       <div className="mt-4">
-        <p className="font-bold">Hi {user?.data?.user_metadata?.username}</p>
+        <p className="">Hi {user?.data?.user_metadata?.username}</p>
       </div>
 
       <div className="w-full p-4 relative">
@@ -125,14 +145,14 @@ export default function Dashboard({ user }: any) {
             SHORTENED LINKS{" "}
             <RiLinksFill className="size-8 p-1 rounded-full bg-slate-200" />{" "}
           </p>
-          <p className="text-center font-semibold ">10</p>
+          <p className="text-center font-semibold ">{linksDays?.data?.length}</p>
         </div>
         <div className=" w-1/2 border-2 flex flex-col justify-between  p-3 border-slate-800 rounded-md  mx-auto  size-48 shadow-2xl ">
           <p className="font-semibold text-lg flex items-center justify-between ">
             TOTAL CLICKS{" "}
             <TbClick className="size-8 p-1 rounded-full bg-slate-200" />{" "}
           </p>
-          <p className="text-center font-semibold ">0</p>
+          <p className="text-center font-semibold ">{totalClickCount}</p>
         </div>
       </div>
 
@@ -140,7 +160,7 @@ export default function Dashboard({ user }: any) {
         <ResponsiveContainer width="100%" height="100%">
           <PieChart width={500} height={400}>
             <Pie
-              data={links?.data}
+              data={linksDays?.data}
               nameKey="shortened_link"
               innerRadius={85}
               outerRadius={110}
@@ -178,8 +198,8 @@ export default function Dashboard({ user }: any) {
                   }
                 }}
               />
-              {links?.data.map((entry: any) => {
-                <Cell fill={entry.color} stroke={entry.color} />;
+              {linksDays?.data?.map((entry, index): any => {
+                <Cell key={index} fill={entry.color} stroke={entry.color} />;
               })}
             </Pie>
 

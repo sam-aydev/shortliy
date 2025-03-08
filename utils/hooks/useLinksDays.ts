@@ -12,7 +12,6 @@ export function useDaysData({
   } = useQuery({
     queryFn: () => getDaysData({start, end}),
     queryKey: ["Links", start, end],
-    placeholderData: (prevData) => prevData,
     staleTime: 0,
     refetchInterval: 0.5,
   });

@@ -89,7 +89,7 @@ export async function signOut() {
     if (error) {
       return { error: error.message };
     }
-
+    redirect("/login")
     return { message: "You are successfully logged out!" };
   } catch (error: any) {
     return {
@@ -180,7 +180,7 @@ export async function sendResetLink(email: string) {
   try {
     const supabase = await createClient();
 
-    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password`;
+    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/update_user`;
     const { data, error }: any = await supabase.auth.resetPasswordForEmail(
       email,
       { redirectTo: resetLink }
