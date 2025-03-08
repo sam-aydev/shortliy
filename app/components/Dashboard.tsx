@@ -20,8 +20,11 @@ import { useDaysData } from "@/utils/hooks/useLinksDays";
 import { ClipLoader } from "react-spinners";
 
 export default function Dashboard({ user }: any) {
+  const today = new Date()
+  const thirtyDaysAgo = new Date()
+  thirtyDaysAgo.setDate(today.getDate - 30)
   const [isOn, setIsOn] = useState(null);
-  const [range, setRange] = useState<any>({});
+  const [range, setRange] = useState<any>({ from : thirtyDatsAgo, to: today});
   const [showPicker, setShowPicker] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -98,7 +101,7 @@ export default function Dashboard({ user }: any) {
       </div>
 
       <div className="w-full p-4 relative">
-        <div className="flex gap-2 mb-4 w-1/2 justify-end ">
+        <div className="flex gap-2 mb-4 w-fit justify-end ">
           <input
             type="text"
             value={
