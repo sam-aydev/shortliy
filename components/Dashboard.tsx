@@ -119,7 +119,7 @@ export default function Dashboard({ user }: any) {
         {showPicker && (
           <div
             ref={popoverRef}
-            className="absolute left-0 top-4 z-10 size-96 bg-white border p-4 rounded shadow-lg"
+            className="absolute left-0 top-10 z-10 w-64 bg-white border p-4 rounded shadow-lg"
           >
             <DayPicker
               mode="range"
