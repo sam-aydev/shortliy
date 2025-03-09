@@ -21,15 +21,15 @@ import { ClipLoader } from "react-spinners";
 
 export default function Dashboard({ user }: any) {
   const today = new Date()
-  const thirtyDaysAgo = new Date()
-  thirtyDaysAgo.setDate(today.getDate() - 30)
+  const fourDaysAgo = new Date()
+  fourDaysAgo.setDate(today.getDate() - 4)
   const [isOn, setIsOn] = useState(null);
-  const [range, setRange] = useState<any>({ from : thirtyDaysAgo, to: today});
+  const [range, setRange] = useState<any>({ from : fourDaysAgo, to: today});
   const [showPicker, setShowPicker] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const menuRef = useRef<HTMLDivElement>(null);
-  console.log(range?.from?.toISOString());
+
   const start = range?.from?.toISOString();
   const end = range?.to?.toISOString();
 
@@ -73,7 +73,6 @@ export default function Dashboard({ user }: any) {
     start,
     end,
   });
-  console.log(linksDays);
 
   const clickCounts: any = linksDays?.data?.map(
     (item: any) => item.click_count
@@ -106,8 +105,8 @@ export default function Dashboard({ user }: any) {
             type="text"
             value={
               range.from || range.to
-                ? range.from?.toLocaleDateString() +
-                  "-" +
+                ? range.from?.toLocaleDateString() + " " + 
+                  "-" + " " + 
                   range.to?.toLocaleDateString()
                 : "Pick a date"
             }
@@ -120,8 +119,7 @@ export default function Dashboard({ user }: any) {
         {showPicker && (
           <div
             ref={popoverRef}
-            className="absolute top-4 z-10 bg-white border p-4 rounded shadow-lg"
-            style={{ top: "100%", left: 0 }}
+            className="absolute left-0 top-4 z-10 size-96 bg-white border p-4 rounded shadow-lg"
           >
             <DayPicker
               mode="range"

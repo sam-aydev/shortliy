@@ -89,7 +89,6 @@ export async function signOut() {
     if (error) {
       return { error: error.message };
     }
-    redirect("/login")
     return { message: "You are successfully logged out!" };
   } catch (error: any) {
     return {

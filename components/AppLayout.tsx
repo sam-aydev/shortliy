@@ -22,7 +22,8 @@ export default function AppLayout({ user }: any) {
         toast.error(error);
         return;
       }
-      toast.success(message);
+      toast.success(message)
+      router.replace("/login")
     } catch (error: any) {
       toast.error(error);
       setIsLoggingOut(false);

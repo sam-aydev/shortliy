@@ -1,4 +1,4 @@
-import ManageLinks from "@/app/components/ManageLinks";
+import ManageLinks from "@/components/ManageLinks";
 import { getUser } from "@/utils/actions/server";
 import { redirect } from "next/navigation";
 

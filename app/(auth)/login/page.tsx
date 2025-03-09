@@ -1,7 +1,7 @@
-import SignInForm from "@/app/components/SignInPage";
+import SignInForm from "@/components/SignInPage";
 import { getUser } from "@/utils/actions/server";
 import { redirect } from "next/navigation";
-import NavBar from "@/app/components/NavBar";
+import NavBar from "@/components/NavBar";
 
 export default async function Page() {
   const { data, error }: any = await getUser();

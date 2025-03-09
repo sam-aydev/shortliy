@@ -1,4 +1,4 @@
-import ShortenLink from "@/app/components/ShortenLink";
+import ShortenLink from "@/components/ShortenLink";
 import { getUser } from "@/utils/actions/server";
 import { redirect } from "next/navigation";
 

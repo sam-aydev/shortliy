@@ -1,5 +1,5 @@
-import SignUpForm from "@/app/components/SignUpPage";
-import NavBar from "@/app/components/NavBar";
+import SignUpForm from "@/components/SignUpPage";
+import NavBar from "@/components/NavBar";
 
 export default function Page() {
   return (

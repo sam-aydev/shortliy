@@ -1,4 +1,4 @@
-import LinkItem from "@/app/components/LinkItem";
+import LinkItem from "@/components/LinkItem";
 import { Metadata } from "next";
 
 export default async function Page({

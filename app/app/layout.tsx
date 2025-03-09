@@ -1,11 +1,11 @@
 import { PropsWithChildren } from "react";
-import AppLayout from "../components/AppLayout";
+import AppLayout from "../../components/AppLayout";
 
-import DesktopSidebar from "../components/DesktopSidebar";
+import DesktopSidebar from "../../components/DesktopSidebar";
 import { getUser } from "@/utils/actions/server";
 
 export default async function Layout({ children }: PropsWithChildren) {
-  const data = await getUser()
+  const data = await getUser();
   return (
     <div>
       <AppLayout user={data} />

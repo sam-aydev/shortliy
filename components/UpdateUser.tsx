@@ -47,7 +47,7 @@ export default function UpdateUser(){
               disabled={isLoading}
               value={password}
               onChange={(e: any) => setPassword(e.target.value)}
-              type="email"
+              type="password"
               placeholder="Your new password..."
               className="p-2 border-black border-2 rounded w-full"
             />
