@@ -20,11 +20,11 @@ import { useDaysData } from "@/utils/hooks/useLinksDays";
 import { ClipLoader } from "react-spinners";
 
 export default function Dashboard({ user }: any) {
-  const today = new Date()
-  const fourDaysAgo = new Date()
-  fourDaysAgo.setDate(today.getDate() - 4)
+  const today = new Date();
+  const fourDaysAgo = new Date();
+  fourDaysAgo.setDate(today.getDate() - 4);
   const [isOn, setIsOn] = useState(null);
-  const [range, setRange] = useState<any>({ from : fourDaysAgo, to: today});
+  const [range, setRange] = useState<any>({ from: fourDaysAgo, to: today });
   const [showPicker, setShowPicker] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -105,8 +105,10 @@ export default function Dashboard({ user }: any) {
             type="text"
             value={
               range.from || range.to
-                ? range.from?.toLocaleDateString() + " " + 
-                  "-" + " " + 
+                ? range.from?.toLocaleDateString() +
+                  " " +
+                  "-" +
+                  " " +
                   range.to?.toLocaleDateString()
                 : "Pick a date"
             }
@@ -119,7 +121,7 @@ export default function Dashboard({ user }: any) {
         {showPicker && (
           <div
             ref={popoverRef}
-            className="absolute left-0 top-10 z-10 w-64 bg-white border p-4 rounded shadow-lg"
+            className="absolute left-4 top-16 z-10 w-fit bg-white border p-4 rounded shadow-lg"
           >
             <DayPicker
               mode="range"
@@ -146,7 +148,9 @@ export default function Dashboard({ user }: any) {
             SHORTENED LINKS{" "}
             <RiLinksFill className="size-8 p-1 rounded-full bg-slate-200" />{" "}
           </p>
-          <p className="text-center font-semibold ">{linksDays?.data?.length}</p>
+          <p className="text-center font-semibold ">
+            {linksDays?.data?.length}
+          </p>
         </div>
         <div className=" w-1/2 border-2 flex flex-col justify-between  p-3 border-slate-800 rounded-md  mx-auto  size-48 shadow-2xl ">
           <p className="font-semibold text-lg flex items-center justify-between ">
