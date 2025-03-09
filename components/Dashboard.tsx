@@ -161,9 +161,11 @@ export default function Dashboard({ user }: any) {
         </div>
       </div>
 
-      <div className="w-full h-96 mx-auto shadow-2xl mt-8 rounded-md p-2 ">
+      <div className="w-full h-96 border-2 border-black  shadow-2xl mt-8 rounded-md">
+       <div className="w-4/5 mx-auto">
+
         <ResponsiveContainer width="100%" height="100%">
-          <PieChart width={500} height={400}>
+          <PieChart width={500} height={500}>
             <Pie
               data={linksDays?.data}
               nameKey="shortened_link"
@@ -172,6 +174,7 @@ export default function Dashboard({ user }: any) {
               cx="40%"
               cy="50%"
               paddingAngle={3}
+              fill="black"
               dataKey="click_count"
             >
               <Label
@@ -203,14 +206,15 @@ export default function Dashboard({ user }: any) {
                   }
                 }}
               />
-              {linksDays?.data?.map((entry, index): any => {
-                <Cell key={index} fill={entry.color} stroke={entry.color} />;
-              })}
+              {/* {linksDays?.data?.map((entry): any => {
+                <Cell key={entry.color} fill={entry.color} stroke={entry.color} />;
+              })} */}
             </Pie>
 
             <Tooltip content={<CustomToolTip />} />
           </PieChart>
         </ResponsiveContainer>
+       </div>
       </div>
 
       <ShortenLinkItem

@@ -1,11 +1,12 @@
 "use client"
 
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import { updateUser } from "@/utils/actions/server";
+import { createClient } from "@/utils/supabase/client";
 
 
 
@@ -13,6 +14,20 @@ export default function UpdateUser(){
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams()
+    const supabase = createClient()
+    useEffect(function(){
+const access_token = searchParams.get("access_token")
+const refresh_token = searchParams.get("refresh_token")
+if(access_token && refresh_token){
+  supabase.auth.setSession({access_token, refresh_token}).then(({error})=> {
+    if(error){
+      toast.error(error.message)
+    }
+  })
+
+} 
+    }, [searchParams])
   
     async function handleSubmit(e: any) {
       e.preventDefault();
