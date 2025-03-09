@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
@@ -9,7 +8,7 @@ import { sendResetLink } from "@/utils/actions/server";
 export default function ForgotPassword() {
   const [email, setEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -25,7 +24,6 @@ export default function ForgotPassword() {
       }
       if (message) {
         toast.success(message);
-        router.push("/update_user");
       }
     } catch (error: any) {
       toast.error(error);
