@@ -8,11 +8,11 @@ export default async function Page({
   params: Promise<{ shortenUrl: string }>;
 }) {
   const shortenUrl = (await params).shortenUrl as string;
-  const storedData = (await cookies()).get("shortened_link")?.value;
-  console.log(storedData);
-  if (storedData === `${process.env.NEXT_PUBLIC_BASE_URL}/${shortenUrl}`) {
-    redirect(storedData);
-  }
+  // const storedData = (await cookies()).get("shortened_link")?.value;
+  // console.log(storedData);
+  // if (storedData === `${process.env.NEXT_PUBLIC_BASE_URL}/${shortenUrl}`) {
+  //   redirect(storedData);
+  // }
   const supabase = await createClient();
 
   const { data, error } = await supabase

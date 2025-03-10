@@ -64,7 +64,7 @@ export default function Dashboard({ user }: any) {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     },
-    [isOn, setIsOn]
+    [isOn, setIsOn, showPicker, setShowPicker]
   );
 
   const { fiveLinks, fiveLinksError, isLoadingFiveLinks }: any = useFiveLinks();
@@ -161,8 +161,8 @@ export default function Dashboard({ user }: any) {
         </div>
       </div>
 
-      <div className="w-full h-96 border-2 border-black  shadow-2xl mt-8 rounded-md">
-       <div className="w-4/5 mx-auto">
+      <div className="w-full h-96 pl-16 border-2 border-black  shadow-2xl mt-8 rounded-md">
+       {/* <div className="w-4/5 mx-auto"> */}
 
         <ResponsiveContainer width="100%" height="100%">
           <PieChart width={500} height={500}>
@@ -214,9 +214,9 @@ export default function Dashboard({ user }: any) {
             <Tooltip content={<CustomToolTip />} />
           </PieChart>
         </ResponsiveContainer>
-       </div>
+       {/* </div> */}
       </div>
-
+ 
       <ShortenLinkItem
         isOn={isOn}
         menuRef={menuRef}

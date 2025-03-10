@@ -1,5 +1,6 @@
 import NavBar from "@/components/NavBar";
 import UpdateUser from "@/components/UpdateUser";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
@@ -10,8 +11,12 @@ export default function Page() {
           <div className="text-center pb-4">
             <h2 className="text-2xl font-semibold">Reset Your Password</h2>
           </div>
+<Suspense fallback="Loading">
+
+
 
           <UpdateUser />
+          </Suspense>
         </div>
       </div>
     </>

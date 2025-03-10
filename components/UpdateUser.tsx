@@ -16,15 +16,17 @@ export default function UpdateUser(){
     const router = useRouter();
     const searchParams = useSearchParams()
     const supabase = createClient()
+
+
     useEffect(function(){
-const access_token = searchParams.get("access_token")
-const refresh_token = searchParams.get("refresh_token")
-if(access_token && refresh_token){
-  supabase.auth.setSession({access_token, refresh_token}).then(({error})=> {
-    if(error){
-      toast.error(error.message)
-    }
-  })
+    const access_token = searchParams.get("access_token")
+    const refresh_token = searchParams.get("refresh_token")
+    if(access_token && refresh_token){
+      supabase.auth.setSession({access_token, refresh_token}).then(({error})=> {
+        if(error){
+          toast.error(error.message)
+        }
+      })
 
 } 
     }, [searchParams])
