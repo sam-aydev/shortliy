@@ -161,7 +161,7 @@ export default function Dashboard({ user }: any) {
         </div>
       </div>
 
-      <div className="w-full h-96 pl-16 border-2 border-black  shadow-2xl mt-8 rounded-md">
+      <div className="w-full h-96 pl-12 border-2 border-black  shadow-2xl mt-8 rounded-md">
        {/* <div className="w-4/5 mx-auto"> */}
 
         <ResponsiveContainer width="100%" height="100%">
